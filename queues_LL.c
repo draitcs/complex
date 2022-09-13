@@ -1,95 +1,45 @@
-#include<stdio.h>
-#include<conio.h>
-#include<process.h>
-#include<alloc.h>
-struct node
+#include<iostream> 
+using namespace std; 
+class complex 
 {
-int info;
-struct node *link;
+public: 
+float real,imag; 
+int input(float r,float i) 
+{
+real=r; 
+imag=i; 
+return 0; 
+} 
+complex add_real_part(int a); 
+complex add_comp(complex); 
+void showdata(complex c) 
+{
+cout<<"The complex number is : \t"; 
+cout<<c.real<<"+ i"<<c.imag<<endl; 
+}
 };
-typedef struct node *NODE;
-NODE getnode()
+complex complex::add_real_part(int a) 
 {
-NODE x;
-x=(NODE)malloc(sizeof(struct node));
-if(x==NULL)
-{
-printf("OUT OF MEMORY\n");
-getch();
-exit(0);
+complex s2; 
+s2.real=real+a; 
+s2.imag=imag; 
+return s2; 
 }
-return x;
-}
-NODE insertrear(int item,NODE first)
+complex complex::add_comp(complex s2) 
 {
-NODE temp;
-NODE cur;
-temp=getnode();
-temp->info=item;
-temp->link=NULL;
-if(first==NULL)
-return temp;
-cur=first;
-while(cur->link!=NULL)
-{
-cur=cur->link;
+complex s3; 
+s3.real=s2.real+real; 
+s3.imag=s2.imag+imag; 
+return s3; 
 }
-cur->link=temp;
-return first;
-}
-NODE deletefront(NODE first)
+int main() 
 {
-NODE temp;
-if(first==NULL)
-{
-printf("list is empty cannot delete\n");
-return first;
-}
-temp=first;
-temp=temp->link;
-printf("item deleted=%d\n",first->info);
-free(first);
-first=NULL;
-return temp;
-}
-void display(NODE first)
-{
-NODE temp;
-if(first==NULL)
-{
-printf("List is Empty\n");
-return;
-}
-printf("CONTENTS OF THE SINGLY LINKED LIST\n");
-temp=first;
-while(temp!=NULL)
-{
-printf("%d\n",temp->info);
-temp=temp->link;
-}
-printf("\n");
-}
-void main()
-{
-NODE first=NULL;
-int choice,item;
-clrscr();
-for(;;)
-{
-printf("1:Insert Rear 2:Delete Front 3:Display 4:Quit\n");
-printf("Enter ur choice\n");
-scanf("%d",&choice);
-switch(choice)
-{
-case 1:printf("Enter the item to be inserted\n");
-scanf("%d",&item);
-first=insertrear(item,first);
-break;
-case 2:first=deletefront(first);
-break;
-case 3:display(first);
-break;
-default:exit(0);
-}
-}
+complex s1,s2,s3; 
+s1.input(11.2,22.3); 
+s2=s1.add_real_part(2); 
+s3=s1.add_comp(s2); 
+s1.showdata(s1); 
+s2.showdata(s2); 
+s3.showdata(s3); 
+return 0; 
 }
